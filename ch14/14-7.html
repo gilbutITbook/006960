@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>ICON EDITOR</title>
+	<script src="./elt.js"></script>
+	<script>
+		window.onload = function() {
+			createIconEditor(document.body,16,16);
+		};
+		function createIconEditor(parent,nx,ny) {
+            // color 선택
+			var color = elt("input", {type: "color"});
+            // 모두 삭제 버튼
+			var clear = elt("input", {type: "button", value: "모두 삭제"});
+			clear.onclick = function(e) {
+				cells.forEach(function(td){ td.style.backgroundColor = "white"; });
+			};
+            // 편집기 화면 테이블
+			var table = elt("table");
+			table.style.borderCollapse = "collapse";
+			table.style.marginTop = "5px";
+			var cells = []; // td요소를 저장하는 배열
+			for(var j=0; j<ny; j++) {
+				var tr = elt("tr");
+				table.appendChild(tr);
+				for(var i=0; i<nx; i++) {
+					var td = elt("td");
+					cells.push(td);
+					td.style.width  = td.style.height = "15px";
+					td.style.border = "1px solid gray";
+					tr.appendChild(td);
+                    // 셀 하나를 클릭할 때 동작하는 이벤트 처리기
+					td.onclick = function changeColor(e) {
+						e.target.style.backgroundColor = color.value;
+					};
+				}
+			}
+            // parent에 각각의 요소를 삽입
+			parent.appendChild(color);
+			parent.appendChild(clear);
+			parent.appendChild(table);
+		}
+	</script>
+</head>
+<body>
+</body>
+</html>

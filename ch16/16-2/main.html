@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>postMessage 예제</title>
+	<script>
+		window.onload = function() {
+			// iframe 요소에 표시되는 페이지의 Window 객체를 가져온다
+			var frameWindow = document.getElementById("frame").contentWindow;
+			// 메시지 입력을 위해 전송 버튼의 요소 객체를 가져온다
+			var message = document.getElementById("message");
+			var button  = document.getElementById("button");
+			// 메시지를 보내는 사이트의 출처
+			var targetOrigin = "/";	// 같은 사이트에 보낸다
+			// button을 클릭하면 메시지를 보낸다
+			button.addEventListener("click", function() {
+				frameWindow.postMessage(message.value, targetOrigin);
+			}, false);
+		};
+	</script>
+</head>
+<body>
+	<p>
+		<input type="text" id="message" size="60">
+		<input type="button" value="보내기" id="button">
+	</p>
+	<iframe src="other.html" id="frame" width="300px" height="200px"></iframe>
+</body>
+</html>

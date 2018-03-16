@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>에라토스테네스의 채로 쌍둥이 소수 구하기</title>
+</head>
+<body>
+    <script>
+        var n = parseInt(prompt("n?"));
+        // 에라토스테네스의 채로 소수를 구한다
+        var p = []; // 아래의 i가 소수이면 p[i] = true, 합성수이면 p[i] = false 로 처리한다
+        for (var i = 2; i <= n; i ++) p[i] = true; // 먼저, 2 ~ n 사이의 모든 정수를 소수로 간주한다
+        var max = Math.floor(Math.sqrt(n)); // 소수 x는 √n까지 구하면 충분하다
+        var x = 2;
+        while(x<=max) {
+            for (var i = 2 * x; i <= n; i += x) p[i] = false; // x의 배수는 합성수
+            while (!p[++x]); // 다음 소수를 찾는다
+        }
+        // 쌍둥이 소수 출력
+        for(var i=2; i<=n-2; i++) {
+            if(p[i] && p[i+2]) {
+                document.write(i+","+(i+2)+"<br>");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>보더 박스를 드래그 하기</title>
+	<script src="./elt.js"></script>
+	<script>
+		window.onload = function() {
+			// 보더 박스를 생성한다
+			var box = elt("div", null, "JavaScript");
+			document.body.appendChild(box);
+			// 마우스를 press 한 상대 위치를 저장하는 변수
+			var boxOffsetX,boxOffsetY;
+			// 보더 박스의 설정
+			box.style.display = "inline-block";
+			box.style.position = "absolute";
+			box.style.padding = "10px";
+			box.style.backgroundColor = "blue";
+			box.style.color = "white";
+			box.style.cursor = "pointer";
+			// mousedown 이벤트 리스너를 등록한다
+			box.addEventListener("mousedown", function mouseDownListener(e) {
+				// mousemove 이벤트 리스너를 등록한다
+				document.addEventListener("mousemove", mouseMoveListener, false);
+				// 마우스를 press 한 상대 위치를 저장한다
+				boxOffsetX = e.offsetX; boxOffsetY = e.offsetY;
+			},false);
+			// mouseup 이벤트 리스너를 등록한다
+			document.addEventListener("mouseup", function mouseUpListener(e) {
+				// mousemove 이벤트 리스너를 제거한다
+				document.removeEventListener("mousemove", mouseMoveListener, false);
+			},false);
+			// mousemove 이벤트 리스너
+			function mouseMoveListener(e) {
+				// 마우스로 press 한 위치를 드래깅한다
+				box.style.left = e.pageX - boxOffsetX + "px";
+				box.style.top  = e.pageY - boxOffsetY + "px";
+			}
+		};
+	</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>두더지 잡기 게임</title>
+<script>
+// 두더지(요소)를 만들고, 초기화하는 함수
+function makeMoles(nx,ny) {
+	// Map 객체에 요소의 상태를 기록한다. 요소 객체가 키 값이 된다.
+	var molesState = new Map();
+	// 가로 nx 마리, 세로 ny 마리의 두더지 (div 요소)를 생성하고 초기화한다
+	var W = 50, SPACE = 10;
+	for(var i=0; i<nx; i++) {
+		for(var j=0; j<ny; j++) {
+			// 요소 생성
+			var element = document.createElement("div");
+			// 요소의 스타일을 설정
+			element.style.width      = W + "px";
+			element.style.height     = W + "px";
+			element.style.background = "url(./mole.jpg)";
+			element.style.position   = "absolute";
+			element.style.opacity    = 0.2;
+			element.style.transition = "transform 0.5s ease-in-out, opacity 0.5s ease";
+			// BODY의 노드 목록에 추가
+			document.body.appendChild(element);
+			// 요소를 배치
+			element.style.left =   SPACE + i*(W+SPACE) + "px";
+			element.style.top  = 2*SPACE + j*(W+SPACE) + "px";
+			// Map 객체에 요소의 상태 (좌표, 투명도)를 기록한다
+			molesState.set(element,{ x: i, y: j, opacity: 0.2 });
+			// 요소를 클릭했을 때 동작하는 이벤트 처리기
+			element.onclick = function clickEventHandler(e) {
+				var element = e.currentTarget;
+				var state = molesState.get(element);
+				// 클릭했을 때 불투명도가 0.5 이상이면 삭제한다
+				if( state.opacity >= 0.5 ) {
+					document.body.removeChild(element);
+					molesState.delete(element);
+				}
+			};
+		}
+	}
+	return molesState;
+}
+window.onload = function() {
+	var TIME_INTERVAL = 1500, DISPLAY_TIME = 1050;
+	// 두더지 생성
+	var molesState = makeMoles(7,4);
+	// 일정한 간격을 두고 두더지를 무작위로 표시한다 (불투명도를 1로 바꾼 다음, 위로 이동시킨다)
+	var timer = setInterval(function appearMole() {
+		// 두더지가 없어지면 게임 끝
+		if( molesState.size == 0) {
+			clearInterval(timer);
+			document.body.innerHTML = "game over";
+			return;
+		}
+		// 존재하는 두더지를 무작위로 선택한다
+		var n = Math.floor(Math.random()*molesState.size);
+		var elements = molesState.keys();
+		var count = 0;
+		for(var element of elements) {
+			if( count++ == n ) break;
+		}
+		var state = molesState.get(element);
+		// 불투명도를 1로 바꾸고, 위로 10px 이동시켜서 두더지를 표시한다
+		element.style.opacity = 1;
+		state.opacity = 1;
+		element.style.transform = "translateY(-10px)";
+		// 일정 시간이 지나면 불투명도와 이동한 거리를 되돌린다
+		setTimeout(function hideMole() {
+			element.style.opacity = 0.2;
+			state.opacity = 0.2;
+			element.style.transform = "translateY(0)";
+		}, DISPLAY_TIME);
+	}, TIME_INTERVAL);
+};
+</script>
+</head>
+<body></body>
+</html>

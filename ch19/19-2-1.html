@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Blob 내려받기</title>
+<script>
+	function getBlob(url, callback) {
+		var req = new XMLHttpRequest();
+		req.onload = function() {
+			callback(req.response);
+		};
+		req.open("GET", url);
+		req.responseType = "blob";
+		req.send(null);
+	}
+	window.onload = function() {
+		getBlob("flower.jpg",function(blob){
+			var blobURL = URL.createObjectURL(blob);
+			document.getElementById("view").src = blobURL;
+		});
+	};
+</script>
+</head>
+<body>
+	<img id="view">
+</body>
+</html>

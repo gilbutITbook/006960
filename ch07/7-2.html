@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>고혈압 여부 확인하기</title>
+    <script>
+        window.onload = function() {
+            document.getElementById("button").onclick = function() {
+                // 수축기 혈압 (최고 혈압)을 구한다
+                var hp = parseFloat(document.getElementById("highpressure").value);
+                // 이완기 혈압 (최저 혈압)을 구한다
+                var lp = parseFloat(document.getElementById("lowpressure").value);
+                // 판정 결과를 내보낼 HTML 요소
+                var judgement = document.getElementById("judgement");
+                // 고혈압 여부를 판정하여 HTML 요소에 출력한다
+                if( hp<120 && lp<80 ) {
+                    judgement.innerHTML = "당신의 혈압은 정상입니다";
+                } else if( hp<139 && lp<89 ) {
+                    judgement.innerHTML = "당신의 혈압은 다소 높습니다";
+                } else {
+                    judgement.innerHTML = "당신은 고혈압입니다";
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+    <p>수축기 혈압 (최고 혈압) : <input type="number" id="highpressure"></p>
+    <p>이완기 혈압 (최저 혈압) : <input type="number" id="lowpressure"></p>
+    <p id="judgement">이곳에 판정 결과가 표시됩니다 </p>
+    <input type="button" id="button" value="확인하기">
+    </body>
+</html>

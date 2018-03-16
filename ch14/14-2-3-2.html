@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <p>
+            <strong class="important">Document Object Model</strong>의 줄임말입니다.
+        </p>
+        <script>
+            var paras = document.getElementsByTagName("p");
+            var firstParaImportants = paras[0].getElementsByClassName("important");
+            console.log(firstParaImportants);
+        </script>
+    </body>
+</html>

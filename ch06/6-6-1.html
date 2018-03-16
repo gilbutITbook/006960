@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas의 기본</title>
+    <script>
+        window.onload = function() {
+            // canvas 요소 가져오기
+            var canvas = document.getElementById("mycanvas");
+            // canvas 랜더링 컨텍스트 가져오기
+            var ctx = canvas.getContext("2d");
+
+            // 그리기
+            ctx.beginPath();
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = "red";
+            ctx.fillStyle = "blue";
+            ctx.strokeRect(10,10,100,80);
+            ctx.fillRect(150,10,100,80);
+        };
+
+
+
+    </script>
+</head>
+<body>
+<canvas id="mycanvas" width="640" height="400"></canvas>
+</body>
+</html>

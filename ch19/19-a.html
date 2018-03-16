@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>드롭 하는 영역을 사용자에게 알리기</title>
+    <script>
+        window.onload = function() {
+            var dragbox = document.getElementById("dragbox");
+            var dropbox = document.getElementById("dropbox");
+
+            dropbox.addEventListener("dragenter", function(e) {
+                e.target.style.borderColor = "red";
+            }, false);
+            dropbox.addEventListener("dragleave", function(e) {
+                e.target.style.borderColor = "gray";
+            }, false);
+            dropbox.addEventListener("drop", function(e) {
+                e.target.style.borderColor = "gray";
+            }, false);
+        };
+    </script>
+    <style>
+        #dragbox { width: 150px; border: 10px solid blue; }
+        #dropbox { width: 150px; padding: 50px; border: 10px solid blue; }
+    </style>
+<body>
+    <div id="dragbox" draggable="true">이것을 드래그하세요</div>
+    <div id="dropbox">이곳에 드롭하세요</div>
+</body>
+</head>

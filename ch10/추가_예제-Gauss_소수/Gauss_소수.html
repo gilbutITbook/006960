@@ -1,0 +1,94 @@
+<!--
+<프로그램 설명>
+	에라토스테네스의 체로 가우스 소수를 구하여 플롯 패턴으로 만듭니다 플롯 패턴은 바닥에 타일을 붙일 때, 식탁보를 만들 때 활용되곤 합니다.
+	Int8Array를 Array로 수정해도 동작합니다.
+	최근의 JavaScript 실행 환경은 최적화가 되어 있어서 매우 빠르다고는 하지만, Typed Array가 Array보다 최대 1.5배가량 빠릅니다.
+	또한 Array로 생성한 배열은 요소 1개당 64비트를 차지하지만, Int8Array로 생성한 배열은 요소 1개당 8비트를 차지합니다. 따라서 Typed Array의 메모리 소비량이 Array의 1/8입니다.
+<Gauss 소수>
+	실수부와 허수부 모두가 정수인 복소수를 가우스 정수라고 부릅니다.
+	가우스 정수 중에서, ±1 과 ±i (i는 허수 단위) 외의 가우스 정수 2개의 곱으로 나타내지 못하는 수를 가리켜 가우스 소수라고 부릅니다.
+	예를 들어 2는 소수이지만, 2 = (1 + i) (1 - i)로 인수분해되기 때문에 가우스 소수가 아닙니다.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Gauss 소수</title>
+	<script>
+		// 2차원 배열을 1차원 배열로 만드는 클로저를 생성
+		function create2dArray(n) {
+			var array = new Int8Array(n*n);
+			return {
+				set: function(i,j,value) {
+					array[n*i+j] = value;
+				},
+				get: function(i,j) {
+					return array[n*i+j];
+				}
+			};
+		}
+		// 에라토스테네스의 체를 이용하여, 제 1 사분면의 반경 n안의 가우스 소수를 구한다
+		function gaussianPrimes(n) {
+			// 2차원 배열을 생성 : m.get (x, y)가 1이면 Gauss 소수, 0이면 Gauss 소수가 아님
+			var m = create2dArray(n+1);
+			// 모두를 Gauss 소수로 만든다
+			for(var i=0; i<=n; i++) {
+				for(var j=0; j<=n; j++) {
+					m.set(i,j,1);
+				}
+			}
+			// 0, 1, i는 Gauss 소수가 아님
+			m.set(0,0,0); m.set(1,0,0); m.set(0,1,0);
+			// Gauss 소수 (a + bi)의 자명하지 않은 (c + di) 배는 Gauss 소수가 아님
+			// (a+bi)(c+di) = c(a+bi) + d(-b+ai) = p + qi + d(-b+ai) = x + yi
+			// a,b는 √n까지 가면 충분하다
+			var sqrtn = Math.sqrt(Math.floor(n));
+			for(var a=1; a<=sqrtn; a++) {
+				for(var b=0; b<=sqrtn; b++) {
+					if( m.get(a,b) ) {
+						// c> 0 루프 (c <0인 경우는 제 1 사분면 바깥으로 나가므로 제외함)
+						// p = ca, q = cb (c=1,2,...)
+						var p = a, q = b;
+						do {
+							// d 루프 : x = p - db, y = q + da (d! = 0)
+							// d> 0 루프 (1 사분면 내부)
+							var x = p, y = q;
+							do {
+								m.set(x,y,0);
+							} while( (x-=b)>=0 && (y+=a)<=n );
+							// d<0 루프 (1 사분면 내부)
+							x = p; y = q;
+							do {
+								m.set (x, y, 0);
+							} while( (x+=b)<=n && (y-=a)>=0 );
+							p += a; q += b;
+						} while( p<=n );
+						m.set (a, b, 1); // a + bi로 m의 값을 0으로 만들고 있으므로, 1로 되돌림
+					}
+				}
+			}
+			return m;
+		}
+		window.onload = function() {
+			var canvas = document.getElementById("mycanvas");
+			var ctx = canvas.getContext("2d");
+			var scale = 4;	// 배율
+			var N = Math.floor(ctx.canvas.width/scale/2); // 실수부 축과 허수부 축의 최대값
+			var R = Math.floor(Math.sqrt(2)*N); // 조사 범위는 반경 √2xN까지로 설정
+			// 제 1 사분면에서 반경 (R) 이내의 Gauss 소수를 구한다
+			var a = gaussianPrimes(R);
+			// Gauss 소수를 Canvas에 플롯 패턴으로 그린다
+			for(var i=-N; i<=N; i++) {
+				for(var j=-N; j<=N; j++) {
+					if( a.get(Math.abs(i),Math.abs(j)) ) {
+						ctx.fillRect(scale*(i+N)-scale/2,scale*(j+N)-scale/2,scale,scale);
+					}
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="600" height="600"></canvas>
+</body>
+</html>

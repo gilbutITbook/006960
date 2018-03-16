@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        window.onload = function() {
+            var event = document.createEvent("HTMLEvents");
+            event.initEvent("click", true, false);
+            var button = document.getElementById("button");
+            button.addEventListener("click", function (event) {
+                alert(`event.cancelable: ${event.cancelable}`);
+            });
+            button.dispatchEvent(event);
+        };
+    </script>
+</head>
+<body>
+<p>
+    <button id="button">버튼</button>
+</p>
+</body>
+</html>

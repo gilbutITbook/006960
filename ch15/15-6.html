@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        window.onload = function() {
+            var box = document.getElementById("box");
+            box.addEventListener("click", function(e) {
+                changeBgColor(e,"red");
+            },false);
+            function changeBgColor(e,color) {
+                e.currentTarget.style.backgroundColor = color;
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="box">click me</div>
+</body>
+</html>

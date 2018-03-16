@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas의 기본</title>
+	<script>
+		window.onload = function() {
+			// canvas 요소 가져오기
+			var canvas = document.getElementById("mycanvas");
+			// canvas 랜더링 컨텍스트 가져오기
+			var ctx = canvas.getContext("2d");
+			// 그리기
+			ctx.beginPath();
+			ctx.moveTo(60,10);
+			ctx.lineTo(110,100);
+			ctx.lineTo(10,100);
+			ctx.closePath();
+			ctx.stroke();
+			// 삼각형 채우기
+			ctx.beginPath();
+			ctx.moveTo(60,120);
+			ctx.lineTo(110,210);
+			ctx.lineTo(10, 210);
+			ctx.fill();
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="640" height="400"></canvas>
+</body>
+</html>

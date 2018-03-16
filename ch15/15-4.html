@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script>
+        window.onload = function() {
+            var outer = document.getElementById("outer");
+            var inner2 = document.getElementById("inner2");
+            outer.addEventListener("click", function(e) {
+                console.log("outer bubbling");
+            }, false);
+            outer.addEventListener("click", function(e) {
+                console.log("outer capturing");
+            }, true);
+            inner2.addEventListener("click", function(e) {
+                console.log("inner2 bubbling");
+            }, false);
+        };
+    </script>
+</head>
+<body>
+    <div id="outer">
+        outer
+        <div id="inner1">inner1</div>
+        <div id="inner2">inner2</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>간단한 Ajax예제</title>
+    <script>
+        window.onload = function() {
+            // ❶ XMLHttpRequest 객체를 생성한다
+            var req = new XMLHttpRequest();
+            // ❷ 서버와 통신할 때 사용할 처리 방법을 등록한다
+            req.addEventListener("loadstart", function() {
+                document.getElementById("view").innerHTML = "통신중";
+            }, false);
+            // ❸ 요청을 전송하고 통신을 시작한다
+            req.open("GET", "data.txt");
+            req.send(null);
+        };
+    </script>
+</head>
+<body>
+<p id="view"></p>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <p id="controls">
+            <input type="button" value="click" onclick="doSomething();">
+        </p>
+        <script>
+            var para = document.getElementById("controls");
+            var list = para.firstElementChild.attributes;
+            for(var i=0; i<list.length; i++) {
+                console.log(list[i].name + ": " + list[i].value);
+            }
+        </script>
+    </body>
+    </html>
+<!--// type：button-->
+<!--// value：click-->
+<!--// onclick：doSomething();-->

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<title>그래프</title>
+		<style>
+			#graph { border: solid black 1px; }
+		</style>
+		<script>
+			// formula로 그래프를 그린다
+			function draw(formula) {
+				// 수식이 적절하지 않으면 작업을 진행하지 않는다
+				if(!isProperFormula(formula)) return;
+				// 그래프를 그릴 canvas 요소 가져오기
+				var graph = document.getElementById("graph");
+				// canvas 초기화하기
+				graph.width = graph.width;
+				// canvas의 가로 길이와 높이
+				var width  = graph.width;
+				var height = graph.height;
+				// canvas의 랜더링 컨텍스트 가져오기
+				g = graph.getContext("2d");
+				// x좌표와 y좌표의 범위
+				var xmin = -5, xmax = 5, ymin = -5, ymax = 5;
+				// 좌표값을 canvas의 좌표로 변환하는 함수
+				function gx(x) { return (x-xmin)/(xmax-xmin)*width; }
+				function gy(y) { return height - (y-ymin)/(ymax-ymin)*height; }
+				// 좌표축과 눈금선 그리기
+				drawAxis();
+				// formula로 함수 f를 정의한다
+				eval("function f(x) { return "+formula+"; }");
+				// 그래프 그리기
+				drawGraph();
+				// 좌표축과 눈금선 그리기
+				function drawAxis() {
+					// x축과 평행한 눈금선 그리기
+					g.strokeStyle = "#aaa";
+					for(var x=parseInt(xmin)-1; x<xmax; x++) {
+						g.beginPath();
+						g.moveTo(gx(x),gy(ymin)); g.lineTo(gx(x),gy(ymax));
+						g.stroke();
+					}
+					// y축과 평행한 눈금선 그리기
+					for(var y=parseInt(ymin)-1; y<ymax; y++) {
+						g.beginPath();
+						g.moveTo(gx(xmin),gy(y)); g.lineTo(gx(xmax),gy(y));
+						g.stroke();
+					}
+					// x축 그리기
+					g.strokeStyle = "#333";
+					g.beginPath();
+					g.moveTo(gx(xmin),gy(0)); g.lineTo(gx(xmax),gy(0));
+					g.stroke();
+					// y축 그리기
+					g.beginPath();
+					g.moveTo(gx(0),gy(ymin)); g.lineTo(gx(0),gy(ymax));
+					g.stroke();
+				}
+				// 그래프 그리기
+				function drawGraph() {
+					g.strokeStyle = "red";
+					g.lineWidth = 1.5;
+					var N = Math.sqrt(width*width+height*height);
+					var dx = (xmax-xmin)/N;
+					g.beginPath();
+					g.moveTo(gx(xmin),gy(f(xmin)));
+					for(var x=xmin+dx; x<=xmax; x+=dx) {
+						g.lineTo(gx(x),gy(f(x)));
+					}
+					g.stroke();
+				}
+			}
+			// formula가 특정 토큰으로만 구성되었는지를 확인
+			function isProperFormula(formula) {
+				var s = formula;
+				// 수식이 허용하는 토큰 배열
+				mathTalkens = [
+					"\\+", "\\-", "\\*", "\\/", "\\%", "\\(", "\\)", "\\,", " ",
+					"Math\\.sqrt", "Math\\.pow", "Math\\.log", "Math\\.abs",
+					"Math\\.cos", "Math\\.sin", "Math\\.tan", "Math\\.exp", "x", "\\d"
+				];
+				// formula에서 수식의 토큰을 공문자로 치환
+				mathTalkens.forEach(function(el) {
+					s = s.replace(new RegExp(el,"g"),"");
+				});
+				// 아무것도 남아 있지 않아야 문제가 없음
+				if( s.length == 0 ) return true;
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="graph" width=500px height=500px></canvas>
+	</body>
+</html>

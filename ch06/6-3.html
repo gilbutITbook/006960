@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>스톱워치</title>
+	<script>
+		window.onload = function() {
+			var startButton = document.getElementById("start");	// start 버튼 요소
+			var stopButton = document.getElementById("stop");	// stop 버튼 요소
+			var display = document.getElementById("display");	// 결과를 표시하는 요소
+			var startTime,timer;
+			startButton.onclick = start;	// strat 버튼 활성화
+			function start() {
+				startButton.onclick = null;	// start 버튼 비활성화
+				stopButton.onclick = stop;	// stop 버튼 활성화
+				startTime = new Date();
+				// 0.01 초마다 경과한 시간을 표시
+				timer = setInterval(function() {
+					var now = new Date();
+					// #display에 경과한 시간 쓰기
+					display.innerHTML = ((now - startTime)/1000).toFixed(2);
+				},10);
+			}
+			function stop() {
+				clearInterval(timer);			// 타이머 해제
+				startButton.onclick = start;	// strat 버튼 활성화
+			}
+		};
+	</script>
+</head>
+<body>
+	<p id="display">0.00</p>
+	<input id="start" type="button" value="start">
+	<input id="stop" type="button" value="stop">
+</body>
+</html>

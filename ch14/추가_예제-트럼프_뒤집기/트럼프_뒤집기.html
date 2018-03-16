@@ -1,0 +1,73 @@
+<!--
+<프로그램 설명>
+	Deck 생성자로 트럼프 카드 한 세트를 만든 후에 무작위로 섞습니다.
+	deal 메서드로 덱에서 카드 5장을 나누어 주고, 나누어 준 카드를 displayCards 함수가 HTML 요소로 만든 후에 화면에 표시합니다.
+	카드를 표시하는 요소 객체에 클릭했을 때 동작하는 이벤트 처리기를 등록하고, 클릭했을 때 Y축을 기준으로 180° 회전하게 했습니다.
+	displayCards 함수로는 elt 함수를 사용하여 요소를 생성합니다.
+	또한, 카드를 표현하는 요소 객체에 새로운 프로퍼티 (isFront)를 추가해서 카드의 현재 상태가 앞면인지 혹은 뒷면인지를 저장합니다.
+
+	이 프로그램이 사용하는 파일은 다음과 같습니다.
+		elt.js : 요소를 생성하는 함수인 elt가 정의되어 있습니다.
+		card.js : 트럼프 카드를 만드는 생성자 Card와 새로운 카드 조합 (카드 덱)을 생성하는 생성자 Deck이 정의되어 있습니다.
+		card_style.css： 트럼프 카드의 앞면과 뒷면이 정의된 스타일 시트입니다.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>트럼프 카드 뒤집기</title>
+<link href="card_style.css" rel="stylesheet" type="text/css">
+<script src="./elt.js"></script>
+<script src="./card.js"></script>
+<script>
+	// 카드 배열을 요소로 생성해서 표시한다
+	function displayCards(cards) {
+		// 카드를 횡으로 정렬하고 초기화
+		var W = 60, H = 100, SPACE = 20;
+		for(var i=0, ix=0, iy=0; i<cards.length; i++) {
+			// 카드 앞면 요소 생성
+			var front = elt("div", {class: "front"}, cards[i].symbol);
+			// 카드 뒷면 요소 생성
+			var back  = elt("div", {class: "back"});
+			// 카드 요소 생성
+			var card = elt("div", {class: "card"}, front, back);
+			// BODY의 노드 목록에 추가
+			document.body.appendChild(card);
+			// 카드의 위치를 ​​설정
+			card.style.left = SPACE + ix*(W+SPACE) + "px";
+			card.style.top  = SPACE + iy*(H+SPACE) + "px"; 
+			ix++;
+			if( i%10 == 9 ) {
+				ix = 0; iy++;
+			}
+			// 카드의 글자색을 설정
+			card.style.color = cards[i].color;
+			// 카드 요소 객체에 트럼프의 앞뒤 상태를 저장하기 위한 프로퍼티를 추가
+			card.isFront = false;
+			// 마우스 커서 설정
+			card.style.cursor = "pointer";
+			// 카드를 클릭했을 때의 동작을 추가
+			card.onclick = function clickEventHandler(e) {
+				var card = e.currentTarget;
+				if( card.isFront ) {
+					card.style.transform = "rotateY(0)";
+				} else {
+					card.style.transform = "rotateY(180deg)";
+				}
+				card.isFront = !card.isFront;
+			};
+		}
+	}
+	// 도큐먼트의 로드가 끝난 시점에 실행
+	window.onload = function() {
+		// 새로운 카드 덱을 생성하고, 카드를 뒤섞는다
+		var deck = (new Deck()).shuffle();
+		// 카드 덱에서 5장을 나누어준다
+		var hand = deck.deal(5);
+		// 나누어준 카드를 화면에 표시한다
+		displayCards(hand);	
+	};
+</script>
+</head>
+<body></body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>드래그 앤 드롭 예제</title>
+<script>
+	window.onload = function() {
+		var color = document.getElementById("color");
+		var dropbox = document.getElementById("dropbox");
+		// 드래깅을 시작할 때, 색상의 값을 dataTransfer 객체의 데이터로 설정한다
+		color.ondragstart = function(e) {
+			e.dataTransfer.setData("text/plain", e.target.value);
+		};
+		// 드롭할 요소 위에 마우스 포인터가 올라가면, 브라우저의 기본 동작을 취소한다 (필수)
+		dropbox.ondragover = function(e) {
+			e.preventDefault();
+		};
+		// 요소를 드롭하면, datTransfer의 데이터로 보더 박스의 배경색을 설정한다
+		dropbox.ondrop = function(e) {
+			e.preventDefault (); // 브라우저의 기본 동작을 취소한다 (선택사항)
+			e.target.style.backgroundColor = e.dataTransfer.getData("text/plain");
+		};
+		dropbox.addEventListener("dragenter", function(e) {
+			e.target.style.borderColor = "red";
+		}, false);
+		dropbox.addEventListener("dragleave", function(e) {
+			e.target.style.borderColor = "gray";
+		}, false);
+		dropbox.addEventListener("drop", function(e) {
+			e.target.style.borderColor = "gray";
+		}, false);
+	};
+</script>
+<style>
+	#color { margin-bottom: 10px; }
+	#dropbox { width: 150px; padding: 50px; border: 1px solid gray; }
+</style>
+</head>
+<body>
+	<input type="color" id="color" draggable="true">
+	<div id="dropbox">이곳에 드래그하세요</div>
+</body>
+</html>

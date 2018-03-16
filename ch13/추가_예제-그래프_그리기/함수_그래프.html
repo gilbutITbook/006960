@@ -1,0 +1,44 @@
+<!--
+<프로그램 설명>
+	수식을 입력받아서 자식 창에 그래프로 그립니다.
+	자식 창에 표시하는 파일은 drawgraph.html입니다.
+	drawgraph.html 의 draw(formula) 함수는 주어진 수식인 formula의 그래프를 canvas 요소에 그립니다.
+	isProperFormula(formula) 함수는 정규 표현식을 사용하여 formula에 지정된 토큰만 담겨있는지를 확인합니다.
+	이는 악성 코드를 배제하기 위함입니다.
+	eval 함수를 사용해서 수식의 문자열을 함수로 정의하기에 이러한 확인 과정이 필요합니다.
+	적절한 수식인지를 판정하지는 않습니다.
+	단, 이 예제를 로컬 환경에서 동작시킬 수 있는 웹 브라우저는 파이어폭스 뿐입니다.
+	이 예제는 동일 출처 정책에 따라 로컬 환경에서 동작하지 않습니다.
+	다른 웹 브라우저에서 동작시키려면, 2개의 파일을 서버에 올리십시오.
+-->
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<title>입력받은 식의 함수 그래프 그리기</title>
+		<style>
+			#formula { width: 400px; padding: 5px; }
+		</style>
+		<script>
+			window.onload = function() {
+				// 자식 창에 drawgraph.html 을 표시
+				var w = open("drawgraph.html", "그래프", "width=530, height=580");
+				// 자식 창의 위치를 ​​부모의 오른쪽 10px 위치로 이동
+				if( screenX ) { // IE 외의 브라우저
+					w.moveTo(screenX + outerWidth + 10, screenY);
+				} else { // IE
+					w.moveTo(screenLeft + outerWidth + 10, screenTop);
+				}
+				// 버튼을 클릭하면, 자식 창의 draw 함수로 그래프를 그린다
+				document.getElementById("button").onclick = function() {
+					var formula = document.getElementById("formula").value;
+					w.draw(formula);
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<p>x의 수식 : <input id="formula" type="text" value="x*x"></p>
+		<button id="button">그래프 그리기</button>
+	</body>
+</html>

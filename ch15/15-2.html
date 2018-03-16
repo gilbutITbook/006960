@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>이벤트 객체 안의 키보드 관련 프로퍼티 표시하기</title>
+<script>
+	window.onload = function() {
+		document.addEventListener("keydown",showKey,false);
+		var display = document.getElementById("display");
+		function showKey(e) {
+			var prop = ["altKey","ctrlKey","shiftKey","metaKey","key","code","keyCode"];
+			var s = "";
+			for(var i in prop) {
+				s += "<br>" + prop[i] + ": " + e[prop[i]];
+			}
+			s += " -> " + String.fromCharCode(e.keyCode);
+			display.innerHTML = s;
+		}
+	}
+</script>
+</head>
+<body>
+	<p id="display"></p>
+</body>
+</html>

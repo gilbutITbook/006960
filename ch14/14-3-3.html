@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>elt 사용 예제</title>
+	<script src="./elt.js"></script>
+	<script>
+		window.onload = function() {
+			var bloodtypes = ["A형", "B형", "O형", "AB형"];
+			var form = elt("form", {id: "menu"});
+			var select = elt("select", {name: "bloddtype", id: "bloodtype"});
+			bloodtypes.forEach(function(type) {
+				select.appendChild(elt("option", null, type));
+			});
+			form.appendChild(select);
+			document.body.appendChild(form);
+		};
+	</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <form>
+            <input type="checkbox" name="dog" value="pome">포메라니안<br>
+            <input type="checkbox" name="dog" value="dalma">달마시안<br>
+            <input type="checkbox" name="dog" value="bool">불독<br>
+        </form>
+        <script>
+            var dogs = document.getElementsByName("dog");
+            dogs[1].value = "corgi";
+            dogs[1].nextSibling.nodeValue = "웰시 코기";
+            for(var i=0; i<dogs.length; i++) {
+                console.log(i + " 번째의 값 :  " + dogs[i].value);
+            }
+        </script>
+    </body>
+</html>

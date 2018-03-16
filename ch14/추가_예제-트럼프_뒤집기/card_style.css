@@ -1,0 +1,38 @@
+/*
+  앞면과 뒷면이 있는 3차원 트럼프 카드의 CSS 스타일이 정의되어 있습니다.
+  1 장의 카드를 표현하는 요소인 div.card와 그의 자식 요소로 앞면을 표현하는 div.front, 뒷면을 표현하는 div.back을 배치합니다.
+  div.front와 div.back은 절대 위치로 부모 요소와 같은 위치에 배치되어 있습니다.
+  div.front는 transform 프로퍼티를 활용하여 Y축을 기준으로 180° 회전하여 뒷면을 표시하도록 작성되어 있습니다.
+  div.card가 transform 프로퍼티의 영향으로 회전하면, div.front와 div.back도 함께 회전합니다.
+  이때, transition 프로퍼티가 작용하여 매끄럽게 회전하는 애니메이션을 구현합니다.
+*/
+.card {
+	position: absolute;
+	margin: 10px auto;
+	width: 64px;
+	height: 84px;
+	transform-style: preserve-3d;
+	transition: transform 1s ease-in-out;
+}
+.card div {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 60px;
+	height: 80px;
+	border: 2px solid gray;
+	border-radius: 6px;
+	line-height: 80px;
+	font-size: 1.1em;
+	text-align: center;
+	backface-visibility: hidden;
+}
+.front {
+	background-color: white;
+	transform: rotateY(180deg);
+}
+.back {
+	background-color: pink;
+}
+.red { color: red; }
+.black { color: black; }

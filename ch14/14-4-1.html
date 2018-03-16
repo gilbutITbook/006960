@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <style>
+        .box {
+            display: inline-block;
+            padding: 100px;
+            margin: 100px;
+            margin-left: 0;
+            background-color: yellow;
+        }
+    </style>
+    <body>
+        <div class="box" id="sec1">#sec1</div>
+        <br/>
+        <div class="box" id="sec2">#sec2</div>
+        <br/>
+        <div class="box" id="sec3">#sec3</div>
+        <script>
+            function getScrollTop() {
+                if( window.pageYOffset !== undefined ) {
+                    return window.pageYOffset;
+                } else {
+                    return document.documentElement.scrollTop || document.body.scrollTop;
+                }
+            }
+            function getScrollLeft() {
+                if( window.pageXOffset !== undefined ) {
+                    return window.pageXOffset;
+                } else {
+                    return document.documentElement.scrollLeft || document.body.scrollLeft;
+                }
+            }
+
+            // 크롬을 비롯한 일부 브라우저에서는 스크롤 복원 기능을 꺼야 합니다
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            var element = document.getElementById("sec3");
+            var rect = element.getBoundingClientRect();
+            scrollTo(rect.left + getScrollLeft(), rect.top + getScrollTop());
+        </script>
+    </body>
+</html>

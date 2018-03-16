@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="cat black">봄베이</div>
+        <div class="cat white">페르시안</div>
+        <div class="dog white">스피츠</div>
+        <script>
+            var cats = document.getElementsByClassName("cat");
+            for(var i=0; i<cats.length; i++) {
+                console.log(i + " 번째 고양이 :  " + cats[i].innerHTML);
+            }
+        </script>
+    </body>
+</html>

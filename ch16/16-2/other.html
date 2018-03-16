@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>도메인이 다른 페이지</title>
+	<script>
+		window.onload = function() {
+			var result = document.getElementById("display");
+			window.addEventListener("message", function(e) {
+				// 같은 출처를 사용하게 만든다 ( "/" 는 사용할 수 없음 )
+				var sourceOrigin = location.origin;
+				// 메시지를 보낸 사이트의 출처가 이 사이트의 출처와 같은지를 확인한다
+				if( e.origin !== sourceOrigin ) return;
+				display.textContent = e.data;
+			}, false);
+		}
+	</script>
+</head>
+<body>
+	<div id="display"></div>
+</body>
+</html>

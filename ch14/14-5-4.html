@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <ul id="doglist">
+            <li>포메라니안</li>
+            <li>달마시안</li>
+        </ul>
+        <script>
+            var doglist = document.getElementById("doglist");
+            doglist.appendChild(doglist.children[0]); // 첫 번째 자식 요소의 가장 끝에 삽입
+        </script>
+    </body>
+</html>

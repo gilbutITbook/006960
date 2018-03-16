@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <ul id="doglist">
+            <li>포메라니안</li>
+            <li>달마시안</li>
+        </ul>
+        <script>
+            var doglist = document.getElementById("doglist");
+            var element = document.createElement("li");
+            var text = document.createTextNode("불독");
+            doglist.insertBefore(element,doglist.children[1]);  // 두 번째 자식 요소의 바로 앞에 삽입
+            element.appendChild(text);
+        </script>
+    </body>
+</html>

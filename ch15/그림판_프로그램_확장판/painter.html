@@ -1,0 +1,26 @@
+<!--
+<프로그램 설명>
+	예제 15-3의 그림판 프로그램에 아래와 같은 기능을 추가했습니다.
+		(1) [ 뒤로 가기 ] 버튼
+		(2) [ 앞으로 가기 ] 버튼
+		(3) 그리기 도구 rectangle (직사각형 그리기)
+		(4) 그리기 도구 fillrect (사각형 채우기)
+		(5) 그리기 도구 spray (스프레이 도구)
+		(6) 그리기 도구 raindrops (빗방울 브러시)
+		(7) 그리기 도구 rainbow (무지개 브러시)
+
+	이 프로그램은, 프로그램의 파악을 어렵게 하기 위해 자바스크립트 코드를 난독화 했습니다.
+	여러분도 이와 유사한 기능을 그림판 프로그램에 추가해 보시기를 바랍니다.
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Painter</title>
+    <script>
+eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('7 M=[];7 I=-1;9 N(a){M.T=I+1;M.1G(a.D(0,0,a.j.A,a.j.B));I++}1H.1I=9(){1n(l.1J,1K,1L)};9 1n(a,b,c){7 d=n("1M",o,"1N 1O");7[j,1o]=1p(b,c);7 e=n("1q",o);O(7 f 1f E){e.U(E[f](1o))}e.Y.1P="1Q";e.Y.1R="1S";a.U(n("1q",o,d,e,j))}9 1p(b,c){7 d=n("j",{A:b,B:c});7 f=d.1T("2d");d.Y.1U="1V 1W 1X";d.Y.1Y="1Z";N(f);d.F("21",9(e){7 a=l.22("23");a.26("V",t,27);1g.29(a);v[Z](e,f)},t);w[d,f]}9 u(a,b){7 c=b.2a();w{x:k.1r(a.2b-c.2c),y:k.1r(a.2e-c.2f)}}9 n(a,b){7 c=l.2g(a);C(b){O(7 d 1f b){C(b.2h(d)){c.2i(d,b[d])}}}O(7 i=2;i<1h.T;i++){7 e=1h[i];C(2j e=="2k"){e=l.2l(e)}c.U(e)}w c}9 1i(p,q){7 a=q.x-p.x;7 b=q.y-p.y;w k.11(a*a+b*b)}7 Z;7 v=1s.1t(o);v.2m=9(e,a){a.1j="W";a.13="W";7 b=a.D(0,0,a.j.A,a.j.B);7 p=u(e,a.j);a.J();a.1u(p.x,p.y);K(a,b,9(q){a.15(q.x,q.y);a.17()})};v.2n=9(e,a){a.1j="W";7 b=a.D(0,0,a.j.A,a.j.B);7 p=u(e,a.j);K(a,b,9(q){a.J();a.1u(p.x,p.y);a.15(q.x,q.y);a.17()})};v.2o=9(e,a){a.13="1v";7 b=a.D(0,0,a.j.A,a.j.B);7 p=u(e,a.j);K(a,b,9(q){a.2p(p.x,p.y,q.x-p.x,q.y-p.y)})};v.2q=9(e,a){a.13="1v";7 b=a.D(0,0,a.j.A,a.j.B);7 p=u(e,a.j);K(a,b,9(q){a.2r(p.x,p.y,q.x-p.x,q.y-p.y)})};v.2s=9(e,c){7 d=c.D(0,0,c.j.A,c.j.B);7 p=u(e,c.j);K(c,d,9(q){7 a=q.x-p.x;7 b=q.y-p.y;7 r=k.11(a*a+b*b);c.J();c.18(p.x,p.y,r,0,2*k.L,t);c.17()})};v.2t=9(e,c){7 d=c.D(0,0,c.j.A,c.j.B);7 p=u(e,c.j);K(c,d,9(q){7 a=q.x-p.x;7 b=q.y-p.y;7 r=k.11(a*a+b*b);c.J();c.18(p.x,p.y,r,0,2*k.L,t);c.1k()})};v.1l=9(e,d){7 f=e;7 r=d.G/2;7 g=k.2u(2*k.L*r*r/2v);7 h=2w(9(){1l(f)},2x);l.P=9(e){f=e};l.Q=9(e){2y(h);l.P=o;l.Q=o;N(d)};9 1l(a){7 p=u(a,d.j);O(7 i=0;i<g;i++){7 b=1-2*k.R();7 c=1-2*k.R();C(b*b+c*c<1){d.J();d.18(p.x+r*b,p.y+r*c,0.6,0,2*k.L);d.1k()}}}};v.2z=9(e,c){7 d=0.2;7 f=2.0;7 g=c.G;7 h=0;7 i=c.D(0,0,c.j.A,c.j.B);7 p=H=u(e,c.j);l.P=9(e){19(u(e,c.j))};l.Q=9(e){l.P=o;l.Q=o;N(c)};9 19(q){h+=1i(q,H);C(h>g){7 r=(d+k.R()*(1-d))*c.G;7 a=1m(0,c.G);7 b=1m(0,c.G);h=0;c.J();c.18(q.x+a,q.y+b,r,0,2*k.L);c.1k()}H=q}};9 1m(m,s){7 a=1-k.R();7 b=1-k.R();7 c=k.11(-2*k.2A(a));C(0.5-k.R()>0){w c*k.2B(k.L*2*b)*s+m}2C{w c*k.2D(k.L*2*b)*s+m}}v.2E=9(e,a){7 b=["2F","2G","2H","2I","2J","2K","2L"];7 c=0;7 d=a.G*1.25;7 f=0;a.1j="W";a.13="W";7 g=a.X;a.X=b[c];7 h=a.D(0,0,a.j.A,a.j.B);7 p=H=u(e,a.j);l.P=9(e){19(u(e,a.j))};l.Q=9(e){l.P=o;l.Q=o;N(a);a.X=g};9 19(q){f+=1i(q,H);C(f>d){c++;C(c>=b.T)c=0;a.X=b[c];f=0}a.J();a.15(H.x,H.y);a.15(q.x,q.y);a.17();H=q}};9 K(a,b,c){7 d=9(e){a.1a(b,0,0);c(u(e,a.j))};l.F("1w",d,t);l.F("1x",9(e){a.1a(b,0,0);c(u(e,a.j));l.1y("1w",d,t);l.1y("1x",1h.2M,t);N(a)},t)}7 E=1s.1t(o);7 1g;E.2N=9(a){7 b=0;7 c=n("1z",o);7 d=n("1b",o,"그리기 도구：",c);O(7 f 1f v){c.U(n("1A",{z:f},f))}c.1c=b;Z=c.1B[b].z;c.F("V",9(e){Z=S.1B[S.1c].z},t);w d};E.1C=9(a){7 b=1g=n("1d",{1e:"1C"});7 c=n("1b",o," 색：",b);b.F("V",9(e){a.X=S.z;a.2O=S.z},t);w c};E.2P=9(a){7 b=[1,2,3,4,5,6,8,10,12,14,16,20,24,28];7 c=n("1z",o);O(7 i=0;i<b.T;i++){c.U(n("1A",{z:b[i].1D()},b[i].1D()))}c.1c=2;a.G=b[c.1c];7 d=n("1b",o," 선의 너비：",c);c.F("V",9(e){a.G=S.z},t);w d};E.2Q=9(a){7 b=n("1d",{1e:"2R",2S:"0",2T:"1",2U:"0.2V",z:"1"});7 c=n("1b",o," 투명도：",b);b.F("V",9(e){a.2W=S.z},t);w c};E.2X=9(a){7 b=n("1d",{1e:"1E",z:"뒤로 가기"});b.F("1F",9(e){C(I>0){a.1a(M[--I],0,0)}},t);w b};E.2Y=9(a){7 b=n("1d",{1e:"1E",z:"앞으로 가기"});b.F("1F",9(e){C(I+1<M.T){a.1a(M[++I],0,0)}},t);w b};',62,185,'|||||||var||function||||||||||canvas|Math|document||elt|null|||||false|relativePosition|paintTools|return|||value|width|height|if|getImageData|controls|addEventListener|lineWidth|prev|ihistory|beginPath|setDragListeners|PI|paintHistory|saveToHistory|for|onmousemove|onmouseup|random|this|length|appendChild|change|round|strokeStyle|style|paintTool||sqrt||lineJoin||lineTo||stroke|arc|draw|putImageData|label|selectedIndex|input|type|in|colorInput|arguments|distance|lineCap|fill|spray|normRandom|createPainter|ctx|createCanvas|div|floor|Object|create|moveTo|miter|mousemove|mouseup|removeEventListener|select|option|children|color|toString|button|click|push|window|onload|body|800|600|h2|Simple|Painter|fontSize|small|marginBottom|3px|getContext|border|1px|solid|gray|cursor|pointer||mousedown|createEvent|HTMLEvents|||initEvent|true||dispatchEvent|getBoundingClientRect|clientX|left||clientY|top|createElement|hasOwnProperty|setAttribute|typeof|string|createTextNode|brush|line|rectangle|strokeRect|fillrect|fillRect|circle|circleFill|ceil|35|setInterval|30|clearInterval|raindrops|log|sin|else|cos|rainbow|red|orange|yellow|green|cyan|blue|violet|callee|painter|fillStyle|brushsize|alpha|number|min|max|step|05|globalAlpha|goBack|goAhead'.split('|'),0,{}))
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>팩토리얼 계산</title>
+</head>
+<body>
+	<script>
+		function fact(n) {
+			if( n<=1 ) return n;
+			return n*fact(n-1);
+		}
+		for(var i=1; i<10; i++) {
+			console.log(i + "! = " + fact(i));
+		}
+	</script>
+</body>
+</html>

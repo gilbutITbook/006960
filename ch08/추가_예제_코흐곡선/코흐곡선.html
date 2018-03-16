@@ -1,0 +1,53 @@
+<!--
+<프로그램 설명>
+이 프로그램은 재귀 함수의 사용 예입니다. Canvas를 사용하여 코흐 (Koch) 곡선을 그립니다.
+<코흐 곡선>
+특정 방향을 향해 거리 d만큼 가야 한다면, 먼저 d/3 만큼 이동한 후에, 왼쪽으로 60° 를 꺾어 d/3 만큼 이동합니다.
+그리고 오른쪽으로 120° 를 꺾은 후에 d/3 만큼 이동하고, 마지막에 왼쪽으로 60° 를 꺾어 d/3 만큼 이동하면, 도착지점은 같지만 이동한 거리가 4/3 배가 됩니다.
+이러한 작업을 4개의 짧은 선분에 대해 무한히 반복합니다. 이런 과정을 거쳐 만들어진 곡선을 가리켜, 커브 프랙털 구조를 가진 코흐 곡선이라고 합니다.
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>코흐 곡선</title>
+	<script>
+		function koch(c,n,x,y,L,color) {
+			var deg = Math.PI/180;
+			c.strokeStyle = color;
+			c.beginPath();
+			c.moveTo(x,y);
+			hat(n,x,y,0,L);
+			c.stroke();
+			// 선분을 반복해서 꺾어 그리는 함수
+			// n : 계층, (x, y) : 시작점, t : 그리는 방향의 각도, L : 선의 길이
+			function hat(n,x,y,t,L) {
+				var p;
+				if( n==0 ) {	// n = 0이면 직선을 그린다
+					p = { x: x+L*Math.cos(t), y: y+L*Math.sin(t) };
+					c.lineTo(p.x,p.y);
+				} else {		// 그렇지 않으면, n을 하나 줄여서 꺾은 선으로 대체한다
+					p = hat(n-1,x  ,y  ,t       ,L/3);	// L/3 이동
+					p = hat(n-1,p.x,p.y,t-60*deg,L/3);	// 왼쪽으로 60° 꺾은 후에, L/3 이동
+					p = hat(n-1,p.x,p.y,t+60*deg,L/3);	// 오른쪽으로 120° 꺾은 후에, L/3 이동
+					p = hat(n-1,p.x,p.y,t       ,L/3);	// 왼쪽으로 60° 꺾은 후에, L/3 이동
+				}
+				return p;
+			}
+		}
+		window.onload = function() {
+			var canvas = document.getElementById("mycanvas");
+			var ctx = canvas.getContext("2d");
+			koch(ctx,0,20,150,350,"blue");
+			koch(ctx,1,420,150,350,"blue");
+			koch(ctx,2,20,350,350,"blue");
+			koch(ctx,3,420,350,350,"blue");
+			koch(ctx,4,20,550,350,"blue");
+			koch(ctx,5,420,550,350,"blue");
+		};
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width=800 height=800></canvas>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>픽셀의 RGB 값</title>
+	<style>
+		canvas { border: 2px solid gray; }
+	</style>
+	<script>
+		window.onload = function() {
+			var canvas = document.getElementById("mycanvas");
+			var ctx = canvas.getContext("2d");
+			// 이미지 객체 생성하기
+			var img = new Image();
+			// 이미지를 읽어 들인 후의 처리
+			img.onload = function() {
+				// 읽어 들인 이미지를 Canvas에 그리기
+				ctx.drawImage(img,0,0);
+				// ImageData 객체 가져오기
+				// (canvas.width와 canvas.height에는 canvas 요소의 가로 폭과 세로 폭이 저장되어 있음)
+				var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+				// RGBA 값을 구하는 메서드를 추가
+				imageData.getRGBA = function(m,n,i) {
+					return this.data[this.width*4*n + 4*m+i];
+				};
+				var rgb = document.getElementById("rgb");
+				// canvas 요소를 클릭했을 때의 처리
+				canvas.onclick = function(event) {	// event는 이벤트 객체
+					var x = event.offsetX; // 마우스로 클릭한 위치의 X좌표
+					var y = event.offsetY; // 마우스로 클릭한 위치의 Y좌표
+					rgb.innerHTML =  " R:"+to3digit(imageData.getRGBA(x,y,0))
+					               + " G:"+to3digit(imageData.getRGBA(x,y,1))
+					               + " B:"+to3digit(imageData.getRGBA(x,y,2));
+				};
+			};
+			img.src = "./cat.jpg";
+		};
+		// 숫자를 3자리 문자열로 변환하는 함수
+		function to3digit(n) {
+			return ("000"+n).slice(-3);
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="640" height="400"></canvas>
+	<div><output id="rgb"></output></div>
+</body>
+</html>

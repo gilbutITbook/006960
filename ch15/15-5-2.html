@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        window.onload = function() {
+            function Person(name) {
+                this.name = name;
+            };
+            Person.prototype.sayHello = function() {
+                console.log("Hello! " + this.name);
+            }
+            var person = new Person("Tom");
+            var button = document.getElementById("button");
+            button.addEventListener("click", function(e) {
+                person.sayHello();
+            },false);
+        };
+    </script>
+</head>
+<body>
+<p>
+    <button id="button">버튼</button>
+</p>
+</body>
+</html>

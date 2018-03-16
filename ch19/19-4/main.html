@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Web Workers 예제</title>
+<script src="prime.js"></script>
+<script>
+	window.onload = function() {
+		var N = "10000000";
+		var mainstart = document.getElementById("mainstart");
+		var wokerstart = document.getElementById("workerstart");
+		var clear = document.getElementById("clear");
+		var output = document.getElementById("output");
+		startClock();
+		
+		// Worker 객체를 생성한다
+		var worker = new Worker("worker.js");
+		// message 이벤트 처리기를 등록한다
+		worker.onmessage = function(e) {
+			console.log("recieved: " + new Date());
+			output.innerHTML = N + " 이하의 최대 소수 = "  + e.data;
+		};
+		// 워커로 처리한다
+		workerstart.onclick = function() {
+			console.log("send: " + new Date());
+			worker.postMessage(N);
+		};
+		// 메인 스레드로 처리한다
+		mainstart.onclick = function() {
+			output.innerHTML = N + " 이하의 최대 소수 = "  + prime(N);
+		};
+		// 결과를 지운다
+		clear.onclick = function() {
+			output.innerHTML = "";
+		};
+	};
+	function startClock() {
+		var clock = document.getElementById("clock");
+		var startTime = new Date();
+		setInterval(function() {
+			clock.innerHTML = ((new Date() - startTime)/1000).toFixed(1);
+		}, 100);
+	}
+</script>
+</head>
+<body>
+	<div id="clock"></div>
+	<input type="button" value="메인 스레드로 처리하기" id="mainstart">
+	<input type="button" value="워커 스레드로 처리하기" id="workerstart">
+	<input type="button" value="결과를 지우기" id="clear">
+	<div id="output"></div>
+</body>
+</html>

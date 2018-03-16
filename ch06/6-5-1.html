@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas의 기본</title>
+	<script>
+		window.onload = function() {
+			// canvas 요소 가져오기
+			var canvas = document.getElementById("mycanvas");
+			// canvas 랜더링 컨텍스트 가져오기
+			var ctx = canvas.getContext("2d");
+			// 좌표(10,10)에 가로 200, 높이 50인 사각형 테두리를 그린다
+			ctx.strokeRect(10,10,200,150);
+			// 좌표(50,40)에 가로 120, 높이 90인 사각형을 채운다
+			ctx.fillRect(50,40,120,90);
+			// 좌표(90,65)에 가로 40, 높이 40인 사각형 영역을 삭제한다
+			ctx.clearRect(90,65,40,40);
+		}
+	</script>
+</head>
+<body>
+	<canvas id="mycanvas" width="640" height="400"></canvas>
+</body>
+</html>
